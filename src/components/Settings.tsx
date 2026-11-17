@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { WidgetConfig } from '../types';
+import { defaultCardSizes } from '../config';
 import Widget from './Widget';
 import { motion } from 'framer-motion';
 
@@ -87,7 +88,16 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
             </select>
 
             <div className="mt-5 space-y-4 rounded-lg border border-pink-500/30 bg-gray-900/50 p-4">
-              <h4 className="font-semibold text-pink-200">Размер карточек</h4>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h4 className="font-semibold text-pink-200">Размер карточек</h4>
+                <button
+                  type="button"
+                  onClick={() => updateConfig({ ...localConfig, ...defaultCardSizes })}
+                  className="rounded-md border border-pink-400/40 px-3 py-1.5 text-xs font-medium text-pink-200 transition hover:bg-pink-500/15"
+                >
+                  Вернуть исходные размеры
+                </button>
+              </div>
 
               <div>
                 <label className="mb-1 flex justify-between text-sm">
