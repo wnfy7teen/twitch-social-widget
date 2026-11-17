@@ -86,6 +86,42 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               <option value="purple">Фиолетовая</option>
             </select>
 
+            <div className="mt-5 space-y-4 rounded-lg border border-pink-500/30 bg-gray-900/50 p-4">
+              <h4 className="font-semibold text-pink-200">Размер карточек</h4>
+
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Ширина</span><span>{localConfig.cardWidth} px</span>
+                </label>
+                <input type="range" min="140" max="260" step="5" value={localConfig.cardWidth}
+                  onChange={(e) => handleChange('cardWidth', Number(e.target.value))} className="w-full accent-pink-400" />
+              </div>
+
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Высота</span><span>{localConfig.cardHeight} px</span>
+                </label>
+                <input type="range" min="40" max="80" step="2" value={localConfig.cardHeight}
+                  onChange={(e) => handleChange('cardHeight', Number(e.target.value))} className="w-full accent-pink-400" />
+              </div>
+
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Размер иконок</span><span>{localConfig.iconSize} px</span>
+                </label>
+                <input type="range" min="12" max="24" step="1" value={localConfig.iconSize}
+                  onChange={(e) => handleChange('iconSize', Number(e.target.value))} className="w-full accent-pink-400" />
+              </div>
+
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Размер текста</span><span>{localConfig.textSize} px</span>
+                </label>
+                <input type="range" min="10" max="18" step="1" value={localConfig.textSize}
+                  onChange={(e) => handleChange('textSize', Number(e.target.value))} className="w-full accent-pink-400" />
+              </div>
+            </div>
+
             <label className="block mt-3 mb-2 text-sm">Скорость анимации (секунды):</label>
             <input type="number" min="0.1" max="3" step="0.1" value={localConfig.animationSpeed} onChange={(e) => handleChange('animationSpeed', Math.min(3, Math.max(0.1, Number(e.target.value) || 0.6)))} className="w-full p-2 bg-gray-900 border border-purple-500/50 rounded text-white"/>
 
