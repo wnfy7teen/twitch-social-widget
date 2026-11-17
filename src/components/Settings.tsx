@@ -78,7 +78,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
   const enabledCount = [localConfig.instagram, localConfig.telegram, localConfig.website].filter((item) => item.isEnabled).length;
 
   return (
-    <div className="settings-shell min-h-screen text-[#292825]">
+    <div className="settings-shell h-screen overflow-y-auto overscroll-contain text-[#292825]">
       <header className="sticky top-0 z-30 border-b border-[#e8e4de] bg-[#f8f7f4]/95 backdrop-blur">
         <div className="mx-auto flex h-[66px] max-w-[1440px] items-center justify-between px-5 sm:px-8">
           <div className="flex items-center gap-3">
