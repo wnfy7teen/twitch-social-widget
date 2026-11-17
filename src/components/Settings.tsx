@@ -87,7 +87,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
             </div>
             <div>
               <p className="text-[13px] font-semibold tracking-[-0.02em] text-[#e9e6e1]">Social Widget</p>
-              <p className="text-[10px] tracking-[0.08em] text-[#89847d]">CREATOR TOOLS</p>
+              <p className="text-[10px] tracking-[0.08em] text-[#89847d]">vanesso4ka_tools</p>
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-[#302f2d] px-3 py-1.5">
