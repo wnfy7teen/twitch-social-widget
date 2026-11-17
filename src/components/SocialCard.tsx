@@ -21,17 +21,17 @@ const cardVariants = {
 };
 
 const themeClasses: Record<ThemeName, string> = {
-  default: 'bg-slate-700/65 border-slate-300/40',
-  pink: 'bg-gradient-to-tr from-pink-500/25 to-fuchsia-500/25 border-pink-300/50',
-  lavender: 'bg-gradient-to-tr from-indigo-400/25 to-violet-400/25 border-violet-200/50',
-  purple: 'bg-gradient-to-tr from-violet-600/30 to-purple-900/35 border-purple-300/50',
+  default: 'bg-[#292826]/95 border-[#514d48]',
+  pink: 'bg-gradient-to-tr from-[#30272c]/95 to-[#292326]/95 border-pink-300/45',
+  lavender: 'bg-gradient-to-tr from-[#292a31]/95 to-[#25262c]/95 border-violet-200/45',
+  purple: 'bg-gradient-to-tr from-[#2d2932]/95 to-[#252129]/95 border-purple-300/45',
 };
 
 const themeIconClasses: Record<ThemeName, string> = {
-  default: 'bg-slate-500/80',
-  pink: 'bg-pink-400/80',
-  lavender: 'bg-indigo-400/80',
-  purple: 'bg-violet-500/80',
+  default: 'bg-[#45413d]',
+  pink: 'bg-[#704653]',
+  lavender: 'bg-[#4b4d68]',
+  purple: 'bg-[#59446f]',
 };
 
 const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, height, iconSize, textSize, animationSpeed, glowIntensity }) => {
