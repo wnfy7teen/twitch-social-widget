@@ -64,7 +64,16 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
               }`}
             >
               {socialMediaList.map((item) => (
-                <SocialCard key={item.config.platform} config={item.config} index={item.index} theme={config.theme} />
+                <SocialCard
+                  key={item.config.platform}
+                  config={item.config}
+                  index={item.index}
+                  theme={config.theme}
+                  width={config.cardWidth}
+                  height={config.cardHeight}
+                  iconSize={config.iconSize}
+                  textSize={config.textSize}
+                />
               ))}
             </div>
           </div>
