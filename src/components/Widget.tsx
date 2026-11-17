@@ -8,9 +8,9 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
   const socialMediaList = [
     { config: config.instagram, index: 0 },
     { config: config.telegram, index: 1 },
+    { config: config.website, index: 2 },
   ];
 
-  // Visibility / auto-hide cycle
   const [visible, setVisible] = useState(!config.autoHide);
 
   useEffect(() => {
@@ -38,31 +38,44 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
   }, [config.autoHide, config.autoHideDelay, config.showDuration, config.hideDuration]);
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 12 },
     visible: { opacity: 1, y: 0, transition: { duration: config.animationSpeed } },
-    exit: { opacity: 0, y: -20, transition: { duration: config.hideDuration } },
+    exit: { opacity: 0, y: -12, transition: { duration: config.hideDuration } },
   };
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="flex min-h-screen w-full items-center justify-center bg-transparent p-4"
+          className="flex min-h-0 w-fit max-w-full items-center justify-center bg-transparent p-1"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className="space-y-6 w-full max-w-[1400px] h-full relative flex flex-col items-center justify-center p-4 pr-8 pl-8">
-            {/* Optional particle background */}
-            {config.showBackgroundParticles && <BackgroundParticles />}
-            {/* Header – customizable through settings */}
-            <h1 className="text-3xl text-white/90 font-extrabold text-center tracking-wider pt-10 w-full">
+          <div className="relative isolate flex h-fit w-fit max-w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-xl p-1">
+            {config.showBackgroundParticles && <BackgroundParticles key={config.mode} />}
+            <h1 className="relative z-10 w-full pt-0.5 text-center text-sm font-extrabold tracking-wide text-white/90">
               {config.title}
             </h1>
-            <div className="flex flex-col space-y-5 w-full items-center justify-center">
+            <div
+              className={`relative z-10 flex w-fit max-w-full items-center justify-center gap-1.5 ${
+                config.mode === 'horizontal' ? 'flex-row flex-wrap' : 'flex-col'
+              }`}
+            >
               {socialMediaList.map((item) => (
-                <SocialCard key={item.config.platform} config={item.config} index={item.index} />
+                <SocialCard
+                  key={`${item.config.platform}-${config.animationSpeed}`}
+                  config={item.config}
+                  index={item.index}
+                  theme={config.theme}
+                  width={config.cardWidth}
+                  height={config.cardHeight}
+                  iconSize={config.iconSize}
+                  textSize={config.textSize}
+                  animationSpeed={config.animationSpeed}
+                  glowIntensity={config.glowIntensity}
+                />
               ))}
             </div>
           </div>

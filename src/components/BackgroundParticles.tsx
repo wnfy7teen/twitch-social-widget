@@ -1,6 +1,4 @@
-// Simple particle background using HTML canvas.
-// This component respects the config.showBackgroundParticles flag (handled by its parent).
-// It creates a lightweight animation of floating circles.
+// Responsive canvas particle background that follows the widget's actual bounds.
 import React, { useEffect, useRef } from 'react';
 
 const BackgroundParticles: React.FC = () => {
@@ -8,66 +6,86 @@ const BackgroundParticles: React.FC = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    let animationFrameId: number;
+    const parent = canvas?.parentElement;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !parent || !ctx) return;
+
+    let frame = 0;
+    let width = 0;
+    let height = 0;
     const particles: { x: number; y: number; r: number; vx: number; vy: number; opacity: number }[] = [];
-    const PARTICLE_COUNT = 30;
+    const count = 30;
+
     const resize = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-    };
-    resize();
-    const initParticles = () => {
-      particles.length = 0;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const bounds = parent.getBoundingClientRect();
+      const nextWidth = Math.max(1, Math.round(bounds.width));
+      const nextHeight = Math.max(1, Math.round(bounds.height));
+      if (nextWidth === width && nextHeight === height) return;
+
+      const oldWidth = width;
+      const oldHeight = height;
+      width = nextWidth;
+      height = nextHeight;
+
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      // Preserve the particle field proportionally when switching layouts.
+      particles.forEach((p) => {
+        p.x = oldWidth ? (p.x / oldWidth) * width : Math.random() * width;
+        p.y = oldHeight ? (p.y / oldHeight) * height : Math.random() * height;
+      });
+
+      while (particles.length < count) {
         particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: 2 + Math.random() * 3,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          opacity: 0.2 + Math.random() * 0.3,
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: 1.5 + Math.random() * 2,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          opacity: 0.2 + Math.random() * 0.35,
         });
       }
     };
-    initParticles();
+
     const render = () => {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(255,255,255,0.05)';
-      particles.forEach(p => {
+      resize();
+      ctx.clearRect(0, 0, width, height);
+      for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
         ctx.fill();
-        // move
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < -p.r) p.x = canvas.width + p.r;
-        if (p.x > canvas.width + p.r) p.x = -p.r;
-        if (p.y < -p.r) p.y = canvas.height + p.r;
-        if (p.y > canvas.height + p.r) p.y = -p.r;
-      });
-      animationFrameId = requestAnimationFrame(render);
+        if (p.x < -p.r) p.x = width + p.r;
+        if (p.x > width + p.r) p.x = -p.r;
+        if (p.y < -p.r) p.y = height + p.r;
+        if (p.y > height + p.r) p.y = -p.r;
+      }
+      frame = requestAnimationFrame(render);
     };
-    render();
-    const handleResize = () => {
-      resize();
-      initParticles();
-    };
-    window.addEventListener('resize', handleResize);
+
+    resize();
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null;
+    observer?.observe(parent);
+    window.addEventListener('resize', resize);
+    frame = requestAnimationFrame(render);
+
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 block h-full w-full"
     />
   );
 };

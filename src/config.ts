@@ -2,6 +2,13 @@ import type { WidgetConfig, SocialMediaConfig, WidgetMode, ThemeName } from './t
 
 export type { WidgetConfig, SocialMediaConfig, WidgetMode, ThemeName } from './types';
 
+export const defaultCardSizes = {
+  cardWidth: 220,
+  cardHeight: 48,
+  iconSize: 18,
+  textSize: 14,
+};
+
 export const defaultInstagramConfig: SocialMediaConfig = {
   platform: 'instagram',
   username: 'elya_asmadulova',
@@ -16,10 +23,18 @@ export const defaultTelegramConfig: SocialMediaConfig = {
   isEnabled: true,
 };
 
+export const defaultWebsiteConfig: SocialMediaConfig = {
+  platform: 'website',
+  username: 'vanesso4ka.site',
+  link: 'https://vanesso4ka.site',
+  isEnabled: true,
+};
+
 export const initialConfig: WidgetConfig = {
   title: 'Follow Me',
   mode: 'horizontal',
   theme: 'pink',
+  ...defaultCardSizes,
   animationSpeed: 0.6,
   glowIntensity: 0.7,
   showBackgroundParticles: true,
@@ -29,4 +44,5 @@ export const initialConfig: WidgetConfig = {
   hideDuration: 30,
   instagram: defaultInstagramConfig,
   telegram: defaultTelegramConfig,
+  website: defaultWebsiteConfig,
 };

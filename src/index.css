@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Transparent background - no default styles */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,22 +11,28 @@
 
 html, body, #root {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
   background: transparent;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Noto Sans', 'Helvetica Neue', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
-/* Hide scrollbar but allow functionality */
+html, body {
+  overflow: hidden;
+}
+
+#root {
+  overflow: hidden;
+}
+
+/* Hide scrollbars in OBS without changing the transparent canvas */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-/* Prevent text selection on drag */
+/* Prevent accidental text selection while preserving clickable links */
 body {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -30,11 +40,113 @@ body {
   user-select: none;
 }
 
-/* Smooth animations */
+a, input, textarea, select, button {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Settings dashboard */
+.settings-shell {
+  background: #1b1b1a;
+  color: #e9e6e1;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4743 transparent;
+}
+
+.settings-range {
+  height: 4px;
+  appearance: none;
+  border-radius: 999px;
+  background: #45423e;
+  outline: none;
+}
+
+.settings-range::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  appearance: none;
+  border: 3px solid #292826;
+  border-radius: 50%;
+  background: #a77d8a;
+  box-shadow: 0 0 0 1px #98717e, 0 1px 3px rgba(0,0,0,.12);
+  transition: transform .15s ease;
+}
+
+.settings-range::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.settings-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 3px solid #292826;
+  border-radius: 50%;
+  background: #98717e;
+  box-shadow: 0 0 0 1px #98717e, 0 1px 3px rgba(0,0,0,.12);
+}
+
+.settings-toggle {
+  width: 34px;
+  height: 19px;
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid #55514c;
+  border-radius: 999px;
+  background: #45423e;
+  cursor: pointer;
+  position: relative;
+  transition: background .18s ease, border-color .18s ease;
+}
+
+.settings-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #d8d2ca;
+  box-shadow: 0 1px 2px rgba(0,0,0,.16);
+  transition: transform .18s ease;
+}
+
+.settings-toggle:checked {
+  border-color: #a77d8a;
+  background: #98717e;
+}
+
+.settings-toggle:checked::after {
+  transform: translateX(15px);
+}
+
+.settings-toggle:focus-visible,
+.settings-range:focus-visible {
+  outline: 2px solid #b58b98;
+  outline-offset: 3px;
+}
+
+.preview-stage {
+  background-color: #222326;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (max-width: 640px) {
+  .settings-shell header > div {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

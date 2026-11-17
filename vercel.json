@@ -1,15 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "src/index.html",
-      "use": "@vercel/static-build"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.html"
-    }
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/widget", "destination": "/index.html" },
+    { "source": "/settings", "destination": "/settings.html" }
   ]
 }

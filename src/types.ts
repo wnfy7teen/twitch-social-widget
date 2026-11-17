@@ -1,4 +1,4 @@
-export type Platform = 'instagram' | 'telegram';
+export type Platform = 'instagram' | 'telegram' | 'website';
 
 export type ThemeName = 'default' | 'pink' | 'lavender' | 'purple';
 
@@ -15,6 +15,10 @@ export interface WidgetConfig {
   title: string;
   mode: WidgetMode;
   theme: ThemeName;
+  cardWidth: number;
+  cardHeight: number;
+  iconSize: number;
+  textSize: number;
   animationSpeed: number;
   glowIntensity: number;
   showBackgroundParticles: boolean;
@@ -24,4 +28,5 @@ export interface WidgetConfig {
   hideDuration: number;
   instagram: SocialMediaConfig;
   telegram: SocialMediaConfig;
+  website: SocialMediaConfig;
 }
