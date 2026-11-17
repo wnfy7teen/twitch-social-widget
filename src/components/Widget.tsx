@@ -73,6 +73,8 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
                   height={config.cardHeight}
                   iconSize={config.iconSize}
                   textSize={config.textSize}
+                  animationSpeed={config.animationSpeed}
+                  glowIntensity={config.glowIntensity}
                 />
               ))}
             </div>
