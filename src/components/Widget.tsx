@@ -11,7 +11,6 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
     { config: config.website, index: 2 },
   ];
 
-  // Visibility / auto-hide cycle
   const [visible, setVisible] = useState(!config.autoHide);
 
   useEffect(() => {
@@ -39,30 +38,28 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
   }, [config.autoHide, config.autoHideDelay, config.showDuration, config.hideDuration]);
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 12 },
     visible: { opacity: 1, y: 0, transition: { duration: config.animationSpeed } },
-    exit: { opacity: 0, y: -20, transition: { duration: config.hideDuration } },
+    exit: { opacity: 0, y: -12, transition: { duration: config.hideDuration } },
   };
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="flex min-h-screen w-full items-center justify-center bg-transparent p-4"
+          className="flex min-h-screen w-full items-center justify-center bg-transparent p-2"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className="relative flex h-full w-full max-w-[1400px] flex-col items-center justify-center space-y-6 p-4 pl-8 pr-8">
-            {/* Optional particle background */}
+          <div className="relative flex h-full w-full max-w-[980px] flex-col items-center justify-center gap-3 p-2">
             {config.showBackgroundParticles && <BackgroundParticles />}
-            {/* Header – customizable through settings */}
-            <h1 className="text-3xl text-white/90 font-extrabold text-center tracking-wider pt-10 w-full">
+            <h1 className="w-full pt-1 text-center text-lg font-extrabold tracking-wide text-white/90">
               {config.title}
             </h1>
             <div
-              className={`flex w-full items-center justify-center gap-5 ${
+              className={`flex w-full items-center justify-center gap-2 ${
                 config.mode === 'horizontal' ? 'flex-row flex-wrap' : 'flex-col'
               }`}
             >
