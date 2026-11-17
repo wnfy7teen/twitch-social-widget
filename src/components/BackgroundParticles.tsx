@@ -1,5 +1,4 @@
-// Responsive canvas particle background.
-// Re-measures its parent whenever the widget changes dimensions or orientation.
+// Responsive canvas particle background that follows the widget's actual bounds.
 import React, { useEffect, useRef } from 'react';
 
 const BackgroundParticles: React.FC = () => {
@@ -7,80 +6,77 @@ const BackgroundParticles: React.FC = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const parent = canvas?.parentElement;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !parent || !ctx) return;
 
-    let animationFrameId = 0;
+    let frame = 0;
     let width = 0;
     let height = 0;
     const particles: { x: number; y: number; r: number; vx: number; vy: number; opacity: number }[] = [];
-    const PARTICLE_COUNT = 30;
+    const count = 30;
 
     const resize = () => {
-      const nextWidth = canvas.clientWidth;
-      const nextHeight = canvas.clientHeight;
-      if (!nextWidth || !nextHeight) return;
+      const bounds = parent.getBoundingClientRect();
+      const nextWidth = Math.max(1, Math.round(bounds.width));
+      const nextHeight = Math.max(1, Math.round(bounds.height));
+      if (nextWidth === width && nextHeight === height) return;
 
-      const sizeChanged = nextWidth !== width || nextHeight !== height;
-      if (!sizeChanged) return;
-
+      const oldWidth = width;
+      const oldHeight = height;
       width = nextWidth;
       height = nextHeight;
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(width * pixelRatio);
-      canvas.height = Math.round(height * pixelRatio);
-      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      // Keep existing particles in proportion when the layout changes.
-      particles.forEach((particle) => {
-        particle.x = Math.min(width, Math.max(0, particle.x));
-        particle.y = Math.min(height, Math.max(0, particle.y));
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      // Preserve the particle field proportionally when switching layouts.
+      particles.forEach((p) => {
+        p.x = oldWidth ? (p.x / oldWidth) * width : Math.random() * width;
+        p.y = oldHeight ? (p.y / oldHeight) * height : Math.random() * height;
       });
 
-      while (particles.length < PARTICLE_COUNT) {
+      while (particles.length < count) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          r: 2 + Math.random() * 3,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          opacity: 0.2 + Math.random() * 0.3,
+          r: 1.5 + Math.random() * 2,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          opacity: 0.2 + Math.random() * 0.35,
         });
       }
     };
 
-    resize();
-
     const render = () => {
       resize();
       ctx.clearRect(0, 0, width, height);
-      particles.forEach((particle) => {
+      for (const p of particles) {
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${particle.opacity})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
         ctx.fill();
-
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        if (particle.x < -particle.r) particle.x = width + particle.r;
-        if (particle.x > width + particle.r) particle.x = -particle.r;
-        if (particle.y < -particle.r) particle.y = height + particle.r;
-        if (particle.y > height + particle.r) particle.y = -particle.r;
-      });
-      animationFrameId = requestAnimationFrame(render);
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -p.r) p.x = width + p.r;
+        if (p.x > width + p.r) p.x = -p.r;
+        if (p.y < -p.r) p.y = height + p.r;
+        if (p.y > height + p.r) p.y = -p.r;
+      }
+      frame = requestAnimationFrame(render);
     };
 
-    const resizeObserver = typeof ResizeObserver !== 'undefined'
-      ? new ResizeObserver(resize)
-      : null;
-    if (canvas.parentElement) resizeObserver?.observe(canvas.parentElement);
+    resize();
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null;
+    observer?.observe(parent);
     window.addEventListener('resize', resize);
-    render();
+    frame = requestAnimationFrame(render);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      resizeObserver?.disconnect();
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
       window.removeEventListener('resize', resize);
     };
   }, []);
@@ -89,7 +85,7 @@ const BackgroundParticles: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="absolute inset-0 h-full w-full pointer-events-none"
+      className="pointer-events-none absolute inset-0 z-0 block h-full w-full"
     />
   );
 };
