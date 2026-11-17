@@ -7,6 +7,10 @@ interface SocialCardProps {
   config: SocialMediaConfig;
   index: number;
   theme: ThemeName;
+  width: number;
+  height: number;
+  iconSize: number;
+  textSize: number;
 }
 
 const cardVariants = {
@@ -28,7 +32,7 @@ const themeIconClasses: Record<ThemeName, string> = {
   purple: 'bg-violet-500/80',
 };
 
-const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme }) => {
+const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, height, iconSize, textSize }) => {
   if (!config.isEnabled) return null;
 
   const isInstagram = config.platform === 'instagram';
@@ -45,23 +49,24 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme }) => {
       animate="visible"
       transition={{ delay: index * 0.08, duration: 0.3, type: 'spring', stiffness: 140 }}
       whileHover={{ scale: 1.025, boxShadow: '0 0 14px rgba(192, 132, 252, 0.35)' }}
+      style={{ width: `min(${width}px, 100%)`, minHeight: height }}
       className={`
-        block w-fit max-w-[220px] min-h-[48px] px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md transition-all duration-300 ease-out
+        block max-w-full px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md transition-all duration-300 ease-out
         ${themeClasses[theme]}
         text-white hover:shadow-[0_0_14px_rgba(192,132,252,0.35)]
         border cursor-pointer relative overflow-hidden
       `}
     >
       <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-color-white)_0%,_transparent_70%)]" />
-      <div className="relative z-10 flex items-center gap-2">
+      <div className="relative z-10 flex h-full items-center gap-2">
         <div className={`shrink-0 p-1.5 rounded-full ${themeIconClasses[theme]} shadow-sm`}>
-          <Icon className="w-[18px] h-[18px] text-white" />
+          <Icon style={{ width: iconSize, height: iconSize }} className="text-white" />
         </div>
         <div className="min-w-0">
-          <h3 className="text-sm font-bold tracking-wide leading-tight">
+          <h3 style={{ fontSize: textSize }} className="font-bold tracking-wide leading-tight">
             {isInstagram ? 'Instagram' : isWebsite ? 'Website' : 'Telegram'}
           </h3>
-          <p className="text-[11px] font-medium text-white/90 truncate">
+          <p style={{ fontSize: Math.max(9, textSize * 0.78) }} className="font-medium text-white/90 truncate">
             {isWebsite ? config.username : `@${config.username}`}
           </p>
         </div>
