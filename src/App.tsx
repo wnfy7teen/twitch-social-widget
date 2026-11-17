@@ -4,7 +4,8 @@ import Widget from './components/Widget';
 import Settings from './components/Settings';
 import { initialConfig, type WidgetConfig } from './config';
 
-const STORAGE_KEY = 'twitch-social-widget-config-v1';
+const STORAGE_KEY = 'widgetConfig';
+const LEGACY_STORAGE_KEY = 'twitch-social-widget-config-v1';
 
 function deepMerge<T>(base: T, override: Partial<T> | null | undefined): T {
   if (!override || typeof override !== 'object') return base;
@@ -23,7 +24,7 @@ function deepMerge<T>(base: T, override: Partial<T> | null | undefined): T {
 
 function loadConfig(): WidgetConfig {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
     if (!raw) return initialConfig;
     const parsed = JSON.parse(raw);
     return deepMerge(initialConfig, parsed);
@@ -39,7 +40,7 @@ const App: React.FC = () => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
     } catch {
-      // ignore storage errors (e.g. private mode / OBS restrictions)
+      // Storage can be unavailable in private or restricted browser contexts.
     }
   }, [config]);
 
