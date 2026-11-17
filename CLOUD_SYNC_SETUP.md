@@ -6,14 +6,14 @@ The settings page writes the current widget configuration to Supabase. The OBS b
 
 1. Create a Supabase project.
 2. Open **SQL Editor** and run the contents of [supabase-setup.sql](./supabase-setup.sql).
-3. In **Project Settings → API**, copy the Project URL and the **anon / publishable** key.
+3. In **Project Settings → API**, copy the Project URL and the **anon public** key.
 
 ## 2. Add Vercel environment variables
 
 In Vercel → Project → Settings → Environment Variables, add these variables for **Production** (and Preview if you test previews):
 
 - `VITE_SUPABASE_URL` = your Supabase Project URL
-- `VITE_SUPABASE_ANON_KEY` = your Supabase anon / publishable key
+- `VITE_SUPABASE_ANON_KEY` = your Supabase anon public key
 
 Redeploy the Vercel project after adding them. The anon key is designed to be public; never use the Supabase service-role key in the browser.
 
