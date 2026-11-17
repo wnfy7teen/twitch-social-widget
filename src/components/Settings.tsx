@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { WidgetConfig } from '../types';
-import { defaultCardSizes } from '../config';
+import { defaultCardSizes, initialConfig } from '../config';
 import Widget from './Widget';
 import { motion } from 'framer-motion';
 
@@ -69,7 +69,21 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
           </div>
 
           <div className="p-4 border border-purple-500/30 rounded-lg bg-gray-700/50">
-            <h3 className="font-bold text-lg text-purple-300 mb-2">Глобальные настройки</h3>
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <h3 className="font-bold text-lg text-purple-300">Глобальные настройки</h3>
+              <button
+                type="button"
+                onClick={() => updateConfig({
+                  ...initialConfig,
+                  instagram: { ...initialConfig.instagram },
+                  telegram: { ...initialConfig.telegram },
+                  website: { ...initialConfig.website },
+                })}
+                className="rounded-md border border-red-400/40 px-3 py-1.5 text-xs font-medium text-red-200 transition hover:bg-red-500/15"
+              >
+                Вернуть исходные настройки
+              </button>
+            </div>
             <label className="block mb-2 text-sm">Заголовок виджета:</label>
             <input type="text" value={localConfig.title} onChange={(e) => handleChange('title', e.target.value)} className="w-full p-2 bg-gray-900 border border-purple-500/50 rounded text-white"/>
 
