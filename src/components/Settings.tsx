@@ -10,6 +10,7 @@ import {
 interface SettingsProps {
   config: WidgetConfig;
   setConfig: React.Dispatch<React.SetStateAction<WidgetConfig>>;
+  syncStatus: 'connecting' | 'connected' | 'saving' | 'error' | 'not-configured';
 }
 
 type SocialKey = 'instagram' | 'telegram' | 'website';
@@ -50,7 +51,7 @@ const socialMeta: Record<SocialKey, { title: string; description: string; icon: 
   website: { title: 'Сайт', description: 'Личный сайт или портфолио', icon: Globe2, accent: '#8c829f' },
 };
 
-const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
+const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus }) => {
   const [localConfig, setLocalConfig] = useState<WidgetConfig>(config);
 
   useEffect(() => setLocalConfig(config), [config]);
@@ -92,8 +93,8 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
           </div>
           <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-[#302f2d] px-3 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-[#83a88e]" />
-            <span className="text-[11px] font-medium text-[#b2aca4]">Изменения сохраняются автоматически</span>
-            <Check size={13} className="ml-1 text-[#83a88e]" />
+            <span className="text-[11px] font-medium text-[#b2aca4]">{syncStatus === 'connected' ? 'Облачная синхронизация активна' : syncStatus === 'saving' ? 'Сохраняем изменения…' : syncStatus === 'connecting' ? 'Подключаем облако…' : syncStatus === 'error' ? 'Ошибка облачной синхронизации' : 'Ожидает настройки облака'}</span>
+            {syncStatus === 'connected' ? <Check size={13} className="ml-1 text-[#83a88e]" /> : <span className={`ml-1 h-1.5 w-1.5 rounded-full ${syncStatus === 'error' ? 'bg-[#d27c7c]' : syncStatus === 'saving' ? 'bg-[#d5b56f]' : 'bg-[#918980]'}`} />}
           </div>
         </div>
       </header>
