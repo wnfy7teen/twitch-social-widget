@@ -14,7 +14,7 @@ interface SettingsProps {
 
 type SocialKey = 'instagram' | 'telegram' | 'website';
 
-const inputClass = "mt-1.5 w-full rounded-lg border border-[#41403e] bg-white px-3 py-2.5 text-sm text-[#e9e6e1] outline-none transition placeholder:text-[#817d77] hover:border-[#55524f] focus:border-[#a77d8a] focus:ring-2 focus:ring-[#a77d8a]/10";
+const inputClass = "mt-1.5 w-full rounded-lg border border-[#41403e] bg-[#302f2d] px-3 py-2.5 text-sm text-[#e9e6e1] outline-none transition placeholder:text-[#817d77] hover:border-[#55524f] focus:border-[#a77d8a] focus:ring-2 focus:ring-[#a77d8a]/10";
 const selectClass = inputClass + " cursor-pointer";
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
@@ -86,11 +86,11 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               <span className="text-[15px] font-semibold tracking-[-0.08em]">vf</span>
             </div>
             <div>
-              <p className="text-[13px] font-semibold tracking-[-0.02em] text-[#292826]">Social Widget</p>
+              <p className="text-[13px] font-semibold tracking-[-0.02em] text-[#e9e6e1]">Social Widget</p>
               <p className="text-[10px] tracking-[0.08em] text-[#89847d]">CREATOR TOOLS</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-white px-3 py-1.5">
+          <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-[#302f2d] px-3 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-[#83a88e]" />
             <span className="text-[11px] font-medium text-[#b2aca4]">Изменения сохраняются автоматически</span>
             <Check size={13} className="ml-1 text-[#83a88e]" />
@@ -108,14 +108,14 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
             <p className="mt-2 max-w-xl text-[14px] leading-6 text-[#a29c93]">Настройте ссылки и внешний вид блока, который появится в вашей трансляции.</p>
           </div>
           <button type="button" onClick={resetAll}
-            className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-lg border border-[#45423f] bg-white px-3.5 text-[12px] font-medium text-[#625d56] shadow-sm transition hover:border-[#71515d] hover:bg-[#30292b] hover:text-[#c18c9d] sm:self-auto">
+            className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-lg border border-[#45423f] bg-[#302f2d] px-3.5 text-[12px] font-medium text-[#d1cbc3] shadow-sm transition hover:border-[#71515d] hover:bg-[#30292b] hover:text-[#c18c9d] sm:self-auto">
             <RotateCcw size={14} /> Сбросить все настройки
           </button>
         </div>
 
         <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(390px,0.88fr)]">
           <div className="space-y-5">
-            <section className="rounded-2xl border border-[#383735] bg-white p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
+            <section className="rounded-2xl border border-[#383735] bg-[#262624] p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
               <SectionHeading eyebrow="01 / ACCOUNTS" title="Социальные сети" description="Укажите адреса профилей, которые хотите показывать зрителям." />
               <div className="space-y-3">
                 {(Object.keys(socialMeta) as SocialKey[]).map((key) => {
@@ -123,7 +123,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
                   const Icon = meta.icon;
                   const item = localConfig[key];
                   return (
-                    <div key={key} className="rounded-xl border border-[#3a3936] bg-[#262624] p-4 transition-colors hover:border-[#ded8d2]">
+                    <div key={key} className="rounded-xl border border-[#3a3936] bg-[#262624] p-4 transition-colors hover:border-[#55514c]">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex min-w-0 items-center gap-3">
                           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white shadow-[0_1px_3px_rgba(0,0,0,0.07)]" style={{ color: meta.accent }}>
@@ -155,7 +155,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#383735] bg-white p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
+            <section className="rounded-2xl border border-[#383735] bg-[#262624] p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
               <SectionHeading eyebrow="02 / LAYOUT" title="Внешний вид" description="Общие параметры оформления и расположения блока." />
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <label className="block">
@@ -179,7 +179,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
                       ['purple', 'Фиолетовая', '#755b9e'],
                     ] as const).map(([value, label, color]) => (
                       <button key={value} type="button" onClick={() => handleChange('theme', value)}
-                        className={`flex items-center gap-2 rounded-lg border px-3 py-2.5 text-left text-[11px] font-medium transition ${localConfig.theme === value ? 'border-[#9c7884] bg-[#382e32] text-[#d2a7b3] ring-1 ring-[#9c7884]/20' : 'border-[#383735] bg-white text-[#b4ada4] hover:border-[#55514c]'}`}>
+                        className={`flex items-center gap-2 rounded-lg border px-3 py-2.5 text-left text-[11px] font-medium transition ${localConfig.theme === value ? 'border-[#9c7884] bg-[#382e32] text-[#d2a7b3] ring-1 ring-[#9c7884]/20' : 'border-[#383735] bg-[#302f2d] text-[#b4ada4] hover:border-[#77716a]'}`}>
                         <span className="h-3 w-3 rounded-full" style={{ backgroundColor: color }} />{label}
                       </button>
                     ))}
@@ -188,7 +188,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#383735] bg-white p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
+            <section className="rounded-2xl border border-[#383735] bg-[#262624] p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
               <div className="mb-5 flex items-center justify-between gap-3">
                 <SectionHeading eyebrow="03 / DIMENSIONS" title="Размеры карточек" description="Точная подгонка под композицию вашей сцены в OBS." />
                 <button type="button" onClick={() => updateConfig({ ...localConfig, ...defaultCardSizes })}
@@ -204,7 +204,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#383735] bg-white p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
+            <section className="rounded-2xl border border-[#383735] bg-[#262624] p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
               <SectionHeading eyebrow="04 / MOTION" title="Анимация и эффекты" description="Настройте характер появления карточек и интенсивность подсветки." />
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <RangeControl label="Длительность анимации" value={localConfig.animationSpeed} min={0.1} max={3} step={0.1} suffix=" с" onChange={(value) => handleChange('animationSpeed', value)} />
@@ -222,7 +222,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#383735] bg-white p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
+            <section className="rounded-2xl border border-[#383735] bg-[#262624] p-5 shadow-[0_2px_12px_rgba(39,34,29,0.025)] sm:p-6">
               <SectionHeading eyebrow="05 / VISIBILITY" title="Поведение виджета" description="Автоматическое скрытие и повторное появление во время трансляции." />
               <div className="flex items-center justify-between gap-4">
                 <div>
@@ -242,7 +242,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
           </div>
 
           <aside className="xl:sticky xl:top-[88px]">
-            <div className="overflow-hidden rounded-2xl border border-[#3c3a38] bg-white shadow-[0_8px_30px_rgba(39,34,29,0.055)]">
+            <div className="overflow-hidden rounded-2xl border border-[#3c3a38] bg-[#262624] shadow-[0_8px_30px_rgba(39,34,29,0.055)]">
               <div className="flex items-center justify-between border-b border-[#393836] px-5 py-4">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#33312f] text-[#77636a]"><Eye size={15} /></div>
@@ -267,7 +267,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl border border-[#383735] bg-white p-4">
+            <div className="mt-4 rounded-xl border border-[#383735] bg-[#262624] p-4">
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#33312f] text-[#c092a0]"><SlidersHorizontal size={14} /></div>
                 <div>
