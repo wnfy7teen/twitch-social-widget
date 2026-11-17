@@ -25,15 +25,15 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
   };
 
   return (
-    <div className="h-screen overflow-y-auto overscroll-contain p-8 bg-gray-900 text-white">
-      <h1 className="text-3xl font-bold mb-8 text-center text-pink-300">Настройки виджета</h1>
+    <div className="h-screen overflow-y-auto overscroll-contain bg-gray-900 text-white">
+      <h1 className="mb-6 px-6 pt-6 text-center text-3xl font-bold text-pink-300">Настройки виджета</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 items-start gap-8 px-6 pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.9fr)] lg:gap-6">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-6 p-6 bg-gray-800/70 rounded-xl shadow-2xl"
+          className="min-w-0 space-y-6 rounded-xl bg-gray-800/70 p-6 shadow-2xl"
         >
           <h2 className="text-xl font-semibold border-b pb-2 border-pink-500/50">Конфигурация</h2>
 
@@ -133,17 +133,25 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
+        <motion.aside
+          initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="p-2 rounded-xl shadow-2xl border border-gray-600/50"
-          style={{ width: '100%', minHeight: '600px' }}
+          className="min-w-0 lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start"
         >
-          <div className="h-full w-full bg-transparent">
-            <Widget config={localConfig} />
+          <div className="rounded-xl border border-pink-400/30 bg-gray-800/80 p-4 shadow-2xl backdrop-blur-xl">
+            <div className="mb-3 flex items-center justify-between border-b border-gray-600/60 pb-3">
+              <div>
+                <h2 className="font-semibold text-pink-200">Live Preview</h2>
+                <p className="text-xs text-gray-400">Предпросмотр виджета в реальном времени</p>
+              </div>
+              <span className="rounded-full bg-emerald-400/10 px-2 py-1 text-xs font-medium text-emerald-300">LIVE</span>
+            </div>
+            <div className="flex min-h-[260px] w-full items-center justify-center overflow-hidden rounded-lg border border-dashed border-gray-600/70 bg-black/20 p-4">
+              <Widget config={localConfig} />
+            </div>
           </div>
-        </motion.div>
+        </motion.aside>
       </div>
     </div>
   );
