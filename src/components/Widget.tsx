@@ -8,6 +8,7 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
   const socialMediaList = [
     { config: config.instagram, index: 0 },
     { config: config.telegram, index: 1 },
+    { config: config.website, index: 2 },
   ];
 
   // Visibility / auto-hide cycle
