@@ -52,3 +52,101 @@ a, input, textarea, select, button {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Settings dashboard */
+.settings-shell {
+  background: #f8f7f4;
+  color: #292825;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #d8d1c9 transparent;
+}
+
+.settings-range {
+  height: 4px;
+  appearance: none;
+  border-radius: 999px;
+  background: #e8e3dd;
+  outline: none;
+}
+
+.settings-range::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  appearance: none;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #98717e;
+  box-shadow: 0 0 0 1px #98717e, 0 1px 3px rgba(0,0,0,.12);
+  transition: transform .15s ease;
+}
+
+.settings-range::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.settings-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #98717e;
+  box-shadow: 0 0 0 1px #98717e, 0 1px 3px rgba(0,0,0,.12);
+}
+
+.settings-toggle {
+  width: 34px;
+  height: 19px;
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid #d7d2cb;
+  border-radius: 999px;
+  background: #e9e6e1;
+  cursor: pointer;
+  position: relative;
+  transition: background .18s ease, border-color .18s ease;
+}
+
+.settings-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.16);
+  transition: transform .18s ease;
+}
+
+.settings-toggle:checked {
+  border-color: #98717e;
+  background: #98717e;
+}
+
+.settings-toggle:checked::after {
+  transform: translateX(15px);
+}
+
+.settings-toggle:focus-visible,
+.settings-range:focus-visible {
+  outline: 2px solid #98717e;
+  outline-offset: 3px;
+}
+
+.preview-stage {
+  background-color: #222326;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (max-width: 640px) {
+  .settings-shell header > div {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
