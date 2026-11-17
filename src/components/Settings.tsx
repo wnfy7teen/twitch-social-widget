@@ -253,7 +253,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
                 </div>
                 <span className="rounded-full bg-[#2e3b31] px-2.5 py-1 text-[10px] font-semibold tracking-wide text-[#9bb9a1]">LIVE</span>
               </div>
-              <div className="preview-stage relative flex min-h-[300px] items-center justify-center overflow-hidden p-6">
+              <div className="preview-stage relative flex min-h-[420px] items-center justify-center overflow-hidden p-8">
                 <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.14em] text-white/35"><Monitor size={11} /> OBS canvas</div>
                 <div className="relative z-10 max-w-full">
                   <Widget config={localConfig} />
