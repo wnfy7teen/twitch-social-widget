@@ -49,7 +49,12 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
       animate="visible"
       transition={{ delay: index * 0.08, duration: 0.3, type: 'spring', stiffness: 140 }}
       whileHover={{ scale: 1.025, boxShadow: '0 0 14px rgba(192, 132, 252, 0.35)' }}
-      style={{ width: `min(${width}px, 100%)`, minHeight: height }}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        flex: '0 0 auto',
+        boxSizing: 'border-box',
+      }}
       className={`
         block max-w-full px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md transition-all duration-300 ease-out
         ${themeClasses[theme]}
@@ -58,7 +63,7 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
       `}
     >
       <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-color-white)_0%,_transparent_70%)]" />
-      <div className="relative z-10 flex h-full items-center gap-2">
+      <div className="relative z-10 flex h-full min-w-0 items-center gap-2">
         <div className={`shrink-0 p-1.5 rounded-full ${themeIconClasses[theme]} shadow-sm`}>
           <Icon style={{ width: iconSize, height: iconSize }} className="text-white" />
         </div>
