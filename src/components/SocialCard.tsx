@@ -11,6 +11,8 @@ interface SocialCardProps {
   height: number;
   iconSize: number;
   textSize: number;
+  animationSpeed: number;
+  glowIntensity: number;
 }
 
 const cardVariants = {
@@ -32,7 +34,7 @@ const themeIconClasses: Record<ThemeName, string> = {
   purple: 'bg-violet-500/80',
 };
 
-const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, height, iconSize, textSize }) => {
+const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, height, iconSize, textSize, animationSpeed, glowIntensity }) => {
   if (!config.isEnabled) return null;
 
   const isInstagram = config.platform === 'instagram';
@@ -47,13 +49,14 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      transition={{ delay: index * 0.08, duration: 0.3, type: 'spring', stiffness: 140 }}
-      whileHover={{ scale: 1.025, boxShadow: '0 0 14px rgba(192, 132, 252, 0.35)' }}
+      transition={{ delay: index * 0.08, duration: animationSpeed, type: 'spring', stiffness: 140 }}
+      whileHover={{ scale: 1.025, boxShadow: `0 0 ${Math.round(24 * glowIntensity)}px rgba(236, 72, 153, ${0.55 * glowIntensity})` }}
       style={{
         width: `${width}px`,
         height: `${height}px`,
         flex: '0 0 auto',
         boxSizing: 'border-box',
+        boxShadow: glowIntensity > 0 ? `0 0 ${Math.round(12 * glowIntensity)}px rgba(236, 72, 153, ${0.28 * glowIntensity})` : 'none',
       }}
       className={`
         block max-w-full px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md transition-all duration-300 ease-out
