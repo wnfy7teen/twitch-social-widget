@@ -53,13 +53,13 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
           animate="visible"
           exit="exit"
         >
-          <div className="relative flex h-fit w-fit max-w-full flex-col items-center justify-center gap-2 p-1">
-            {config.showBackgroundParticles && <BackgroundParticles />}
-            <h1 className="w-full pt-0.5 text-center text-sm font-extrabold tracking-wide text-white/90">
+          <div className="relative isolate flex h-fit w-fit max-w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-xl p-1">
+            {config.showBackgroundParticles && <BackgroundParticles key={config.mode} />}
+            <h1 className="relative z-10 w-full pt-0.5 text-center text-sm font-extrabold tracking-wide text-white/90">
               {config.title}
             </h1>
             <div
-              className={`flex w-fit max-w-full items-center justify-center gap-1.5 ${
+              className={`relative z-10 flex w-fit max-w-full items-center justify-center gap-1.5 ${
                 config.mode === 'horizontal' ? 'flex-row flex-wrap' : 'flex-col'
               }`}
             >
