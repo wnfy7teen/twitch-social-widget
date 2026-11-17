@@ -56,18 +56,18 @@ a, input, textarea, select, button {
 
 /* Settings dashboard */
 .settings-shell {
-  background: #f8f7f4;
-  color: #292825;
+  background: #1b1b1a;
+  color: #e9e6e1;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   scrollbar-width: thin;
-  scrollbar-color: #d8d1c9 transparent;
+  scrollbar-color: #4a4743 transparent;
 }
 
 .settings-range {
   height: 4px;
   appearance: none;
   border-radius: 999px;
-  background: #e8e3dd;
+  background: #45423e;
   outline: none;
 }
 
@@ -75,9 +75,9 @@ a, input, textarea, select, button {
   width: 15px;
   height: 15px;
   appearance: none;
-  border: 3px solid #fff;
+  border: 3px solid #292826;
   border-radius: 50%;
-  background: #98717e;
+  background: #a77d8a;
   box-shadow: 0 0 0 1px #98717e, 0 1px 3px rgba(0,0,0,.12);
   transition: transform .15s ease;
 }
@@ -100,9 +100,9 @@ a, input, textarea, select, button {
   height: 19px;
   flex: 0 0 auto;
   appearance: none;
-  border: 1px solid #d7d2cb;
+  border: 1px solid #55514c;
   border-radius: 999px;
-  background: #e9e6e1;
+  background: #45423e;
   cursor: pointer;
   position: relative;
   transition: background .18s ease, border-color .18s ease;
@@ -116,13 +116,13 @@ a, input, textarea, select, button {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #fff;
+  background: #d8d2ca;
   box-shadow: 0 1px 2px rgba(0,0,0,.16);
   transition: transform .18s ease;
 }
 
 .settings-toggle:checked {
-  border-color: #98717e;
+  border-color: #a77d8a;
   background: #98717e;
 }
 
@@ -132,7 +132,7 @@ a, input, textarea, select, button {
 
 .settings-toggle:focus-visible,
 .settings-range:focus-visible {
-  outline: 2px solid #98717e;
+  outline: 2px solid #b58b98;
   outline-offset: 3px;
 }
 
