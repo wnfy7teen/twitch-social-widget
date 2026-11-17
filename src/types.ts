@@ -15,6 +15,10 @@ export interface WidgetConfig {
   title: string;
   mode: WidgetMode;
   theme: ThemeName;
+  cardWidth: number;
+  cardHeight: number;
+  iconSize: number;
+  textSize: number;
   animationSpeed: number;
   glowIntensity: number;
   showBackgroundParticles: boolean;
