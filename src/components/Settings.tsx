@@ -132,11 +132,39 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
               </div>
             </div>
 
-            <label className="block mt-3 mb-2 text-sm">Скорость анимации (секунды):</label>
-            <input type="number" min="0.1" max="3" step="0.1" value={localConfig.animationSpeed} onChange={(e) => handleChange('animationSpeed', Math.min(3, Math.max(0.1, Number(e.target.value) || 0.6)))} className="w-full p-2 bg-gray-900 border border-purple-500/50 rounded text-white"/>
-
-            <label className="block mt-3 mb-2 text-sm">Интенсивность свечения (0–1):</label>
-            <input type="number" min="0" max="1" step="0.1" value={localConfig.glowIntensity} onChange={(e) => handleChange('glowIntensity', Math.min(1, Math.max(0, Number(e.target.value) || 0)))} className="w-full p-2 bg-gray-900 border border-purple-500/50 rounded text-white"/>
+            <div className="mt-5 space-y-4 rounded-lg border border-purple-500/30 bg-gray-900/50 p-4">
+              <h4 className="font-semibold text-purple-200">Анимация и эффекты</h4>
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Скорость анимации</span><span>{localConfig.animationSpeed.toFixed(1)} сек.</span>
+                </label>
+                <input
+                  type="range"
+                  min="0.1"
+                  max="3"
+                  step="0.1"
+                  value={localConfig.animationSpeed}
+                  onChange={(e) => handleChange('animationSpeed', Number(e.target.value))}
+                  className="w-full accent-purple-400"
+                />
+                <p className="mt-1 text-xs text-gray-400">Меньше значение — быстрее появление и движение карточек</p>
+              </div>
+              <div>
+                <label className="mb-1 flex justify-between text-sm">
+                  <span>Интенсивность свечения</span><span>{Math.round(localConfig.glowIntensity * 100)}%</span>
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value={localConfig.glowIntensity}
+                  onChange={(e) => handleChange('glowIntensity', Number(e.target.value))}
+                  className="w-full accent-purple-400"
+                />
+                <p className="mt-1 text-xs text-gray-400">Регулирует внешнее свечение карточек и эффект при наведении</p>
+              </div>
+            </div>
 
             <label className="block mt-3 mb-2 text-sm">Фоновые частицы:</label>
             <input type="checkbox" checked={localConfig.showBackgroundParticles} onChange={() => handleChange('showBackgroundParticles', !localConfig.showBackgroundParticles)} className="mr-2"/>
