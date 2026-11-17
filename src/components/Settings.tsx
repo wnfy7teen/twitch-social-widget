@@ -25,7 +25,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gray-900 text-white">
+    <div className="h-screen overflow-y-auto overscroll-contain p-8 bg-gray-900 text-white">
       <h1 className="text-3xl font-bold mb-8 text-center text-pink-300">Настройки виджета</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
