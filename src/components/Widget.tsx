@@ -47,24 +47,24 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="flex min-h-screen w-full items-center justify-center bg-transparent p-2"
+          className="flex min-h-0 w-fit max-w-full items-center justify-center bg-transparent p-1"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className="relative flex h-full w-full max-w-[980px] flex-col items-center justify-center gap-3 p-2">
+          <div className="relative flex h-fit w-fit max-w-full flex-col items-center justify-center gap-2 p-1">
             {config.showBackgroundParticles && <BackgroundParticles />}
-            <h1 className="w-full pt-1 text-center text-lg font-extrabold tracking-wide text-white/90">
+            <h1 className="w-full pt-0.5 text-center text-sm font-extrabold tracking-wide text-white/90">
               {config.title}
             </h1>
             <div
-              className={`flex w-full items-center justify-center gap-2 ${
+              className={`flex w-fit max-w-full items-center justify-center gap-1.5 ${
                 config.mode === 'horizontal' ? 'flex-row flex-wrap' : 'flex-col'
               }`}
             >
               {socialMediaList.map((item) => (
-                <SocialCard key={item.config.platform} config={item.config} index={item.index} />
+                <SocialCard key={item.config.platform} config={item.config} index={item.index} theme={config.theme} />
               ))}
             </div>
           </div>
