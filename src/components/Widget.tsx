@@ -65,7 +65,7 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
             >
               {socialMediaList.map((item) => (
                 <SocialCard
-                  key={item.config.platform}
+                  key={`${item.config.platform}-${config.animationSpeed}`}
                   config={item.config}
                   index={item.index}
                   theme={config.theme}
