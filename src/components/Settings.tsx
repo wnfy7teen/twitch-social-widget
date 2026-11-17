@@ -281,7 +281,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
           </aside>
         </div>
         <footer className="mt-10 flex flex-col justify-between gap-2 border-t border-[#383735] pt-5 text-[10px] text-[#77736d] sm:flex-row">
-          <span>Social Widget · Creator tools</span><span>Настройки сохраняются автоматически</span>
+          <span>© 2026 Kristofer Biksan · Разработчик</span><span>Все права защищены</span>
         </footer>
       </main>
     </div>
