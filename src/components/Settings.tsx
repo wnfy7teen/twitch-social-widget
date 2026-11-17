@@ -57,6 +57,16 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
             <input type="url" value={localConfig.telegram.link} onChange={(e) => handleChange('telegram', { ...localConfig.telegram, link: e.target.value })} className="w-full p-2 bg-gray-900 border border-blue-500/50 rounded text-white"/>
           </div>
 
+          <div className="p-4 border border-violet-500/30 rounded-lg bg-gray-700/50">
+            <h3 className="font-bold text-lg text-violet-300 mb-2">Сайт</h3>
+            <label className="block mb-2 text-sm">Показывать: {localConfig.website.isEnabled ? 'Да' : 'Нет'}</label>
+            <input type="checkbox" checked={localConfig.website.isEnabled} onChange={() => handleChange('website', { ...localConfig.website, isEnabled: !localConfig.website.isEnabled })} className="mr-2" />
+            <label className="block mb-2 text-sm">Название:</label>
+            <input type="text" value={localConfig.website.username} onChange={(e) => handleChange('website', { ...localConfig.website, username: e.target.value })} className="w-full p-2 bg-gray-900 border border-violet-500/50 rounded text-white" />
+            <label className="block mb-2 text-sm">Ссылка:</label>
+            <input type="url" value={localConfig.website.link} onChange={(e) => handleChange('website', { ...localConfig.website, link: e.target.value })} className="w-full p-2 bg-gray-900 border border-violet-500/50 rounded text-white" />
+          </div>
+
           <div className="p-4 border border-purple-500/30 rounded-lg bg-gray-700/50">
             <h3 className="font-bold text-lg text-purple-300 mb-2">Глобальные настройки</h3>
             <label className="block mb-2 text-sm">Заголовок виджета:</label>
