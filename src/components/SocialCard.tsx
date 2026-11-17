@@ -71,10 +71,10 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
           <Icon style={{ width: iconSize, height: iconSize }} className="text-white" />
         </div>
         <div className="min-w-0">
-          <h3 style={{ fontSize: textSize }} className="font-bold tracking-wide leading-tight">
+          <h3 style={{ fontSize: textSize + 1 }} className="font-bold tracking-wide leading-tight">
             {isInstagram ? 'Instagram' : isWebsite ? 'Website' : 'Telegram'}
           </h3>
-          <p style={{ fontSize: Math.max(9, textSize * 0.78) }} className="font-medium text-white/90 truncate">
+          <p style={{ fontSize: Math.max(10, textSize * 0.85) }} className="font-medium text-white/95 truncate">
             {isWebsite ? config.username : `@${config.username}`}
           </p>
         </div>
