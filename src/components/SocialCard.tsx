@@ -9,7 +9,7 @@ interface SocialCardProps {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  hidden: { opacity: 0, y: 10, scale: 0.97 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -17,16 +17,14 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index }) => {
   if (!config.isEnabled) return null;
 
   const isInstagram = config.platform === 'instagram';
-  const isTelegram = config.platform === 'telegram';
   const isWebsite = config.platform === 'website';
   const Icon = isInstagram ? Instagram : isWebsite ? Globe : Send;
 
-  // Dynamic gradient/color classes based on platform/config (simplified for now)
   const platformClasses = isInstagram
-    ? 'bg-gradient-to-tr from-pink-500/20 to-purple-500/20 border-pink-300/50'
+    ? 'bg-gradient-to-tr from-pink-500/20 to-purple-500/20 border-pink-300/40'
     : isWebsite
-      ? 'bg-gradient-to-tr from-violet-500/20 to-fuchsia-500/20 border-violet-300/50'
-      : 'bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 border-blue-300/50';
+      ? 'bg-gradient-to-tr from-violet-500/20 to-fuchsia-500/20 border-violet-300/40'
+      : 'bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 border-blue-300/40';
 
   return (
     <motion.a
@@ -36,28 +34,28 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index }) => {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      transition={{ delay: index * 0.15, duration: 0.5, type: "spring", stiffness: 100 }}
-      whileHover={{ scale: 1.03, boxShadow: "0 0 30px rgba(255, 105, 180, 0.8)" }} // Instagram glow style
+      transition={{ delay: index * 0.1, duration: 0.35, type: 'spring', stiffness: 120 }}
+      whileHover={{ scale: 1.025, boxShadow: '0 0 18px rgba(255, 105, 180, 0.45)' }}
       className={`
-        block w-full max-w-[520px] h-32 p-6 rounded-2xl shadow-xl backdrop-blur-md transition-all duration-300 ease-out
+        block w-full max-w-[300px] min-h-[68px] px-3 py-2 rounded-xl shadow-lg backdrop-blur-md transition-all duration-300 ease-out
         ${platformClasses}
-        text-white
-        hover:shadow-[0_0_35px_rgba(192,132,252,0.7)]
-        border-2
-        cursor-pointer
-        relative overflow-hidden
+        text-white hover:shadow-[0_0_20px_rgba(192,132,252,0.45)]
+        border cursor-pointer relative overflow-hidden
       `}
     >
-      {/* Subtle background effect placeholder (particles/waves would go here) */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-color-white)_0%,_transparent_70%)]"></div>
+      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-color-white)_0%,_transparent_70%)]" />
 
-      <div className="relative z-10 flex items-center space-x-4">
-        <div className={`p-3.5 rounded-full ${isInstagram ? 'bg-pink-400/70' : isWebsite ? 'bg-violet-400/70' : 'bg-blue-400/70'} shadow-lg`}>
-          <Icon className="w-10 h-10 text-white" />
+      <div className="relative z-10 flex items-center gap-3">
+        <div className={`shrink-0 p-2 rounded-full ${isInstagram ? 'bg-pink-400/70' : isWebsite ? 'bg-violet-400/70' : 'bg-blue-400/70'} shadow-md`}>
+          <Icon className="w-6 h-6 text-white" />
         </div>
-        <div>
-          <h3 className="text-2xl font-bold tracking-wide leading-none">{isInstagram ? 'Instagram' : isWebsite ? 'Website' : 'Telegram'}</h3>
-          <p className="text-base font-medium text-white/90">{isWebsite ? config.username : `@${config.username}`}</p>
+        <div className="min-w-0">
+          <h3 className="text-base font-bold tracking-wide leading-tight">
+            {isInstagram ? 'Instagram' : isWebsite ? 'Website' : 'Telegram'}
+          </h3>
+          <p className="text-xs font-medium text-white/90 truncate">
+            {isWebsite ? config.username : `@${config.username}`}
+          </p>
         </div>
       </div>
     </motion.a>
