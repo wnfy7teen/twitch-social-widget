@@ -49,8 +49,8 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      transition={{ delay: index * 0.08, duration: animationSpeed, type: 'spring', stiffness: 140 }}
-      whileHover={{ scale: 1.025, boxShadow: `0 0 ${Math.round(24 * glowIntensity)}px rgba(236, 72, 153, ${0.55 * glowIntensity})` }}
+      transition={{ delay: index * 0.08, duration: animationSpeed, type: 'tween', ease: 'easeInOut' }}
+      whileHover={{ scale: 1.025, boxShadow: `0 0 ${Math.round(24 * glowIntensity)}px rgba(236, 72, 153, ${0.55 * glowIntensity})`, transition: { duration: animationSpeed, ease: 'easeInOut' } }}
       style={{
         width: `${width}px`,
         height: `${height}px`,
@@ -59,9 +59,9 @@ const SocialCard: React.FC<SocialCardProps> = ({ config, index, theme, width, he
         boxShadow: glowIntensity > 0 ? `0 0 ${Math.round(12 * glowIntensity)}px rgba(236, 72, 153, ${0.28 * glowIntensity})` : 'none',
       }}
       className={`
-        block max-w-full px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md transition-all duration-300 ease-out
+        block max-w-full px-2.5 py-1.5 rounded-lg shadow-md backdrop-blur-md
         ${themeClasses[theme]}
-        text-white hover:shadow-[0_0_14px_rgba(192,132,252,0.35)]
+        text-white
         border cursor-pointer relative overflow-hidden
       `}
     >
