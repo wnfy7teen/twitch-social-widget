@@ -2,6 +2,13 @@ import type { WidgetConfig, SocialMediaConfig, WidgetMode, ThemeName } from './t
 
 export type { WidgetConfig, SocialMediaConfig, WidgetMode, ThemeName } from './types';
 
+export const defaultCardSizes = {
+  cardWidth: 220,
+  cardHeight: 48,
+  iconSize: 18,
+  textSize: 14,
+};
+
 export const defaultInstagramConfig: SocialMediaConfig = {
   platform: 'instagram',
   username: 'elya_asmadulova',
@@ -27,10 +34,7 @@ export const initialConfig: WidgetConfig = {
   title: 'Follow Me',
   mode: 'horizontal',
   theme: 'pink',
-  cardWidth: 190,
-  cardHeight: 46,
-  iconSize: 16,
-  textSize: 13,
+  ...defaultCardSizes,
   animationSpeed: 0.6,
   glowIntensity: 0.7,
   showBackgroundParticles: true,
