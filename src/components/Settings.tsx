@@ -126,7 +126,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig }) => {
                     <div key={key} className="rounded-xl border border-[#3a3936] bg-[#262624] p-4 transition-colors hover:border-[#55514c]">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex min-w-0 items-center gap-3">
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white shadow-[0_1px_3px_rgba(0,0,0,0.07)]" style={{ color: meta.accent }}>
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#343230] shadow-[0_1px_3px_rgba(0,0,0,0.18)]" style={{ color: meta.accent }}>
                             <Icon size={17} strokeWidth={1.8} />
                           </div>
                           <div>
