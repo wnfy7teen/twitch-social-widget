@@ -16,6 +16,13 @@ export const defaultTelegramConfig: SocialMediaConfig = {
   isEnabled: true,
 };
 
+export const defaultWebsiteConfig: SocialMediaConfig = {
+  platform: 'website',
+  username: 'vanesso4ka.site',
+  link: 'https://vanesso4ka.site',
+  isEnabled: true,
+};
+
 export const initialConfig: WidgetConfig = {
   title: 'Follow Me',
   mode: 'horizontal',
@@ -29,4 +36,5 @@ export const initialConfig: WidgetConfig = {
   hideDuration: 30,
   instagram: defaultInstagramConfig,
   telegram: defaultTelegramConfig,
+  website: defaultWebsiteConfig,
 };
