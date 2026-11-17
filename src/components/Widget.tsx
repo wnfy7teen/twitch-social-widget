@@ -53,14 +53,18 @@ const Widget: React.FC<{ config: WidgetConfig }> = ({ config }) => {
           animate="visible"
           exit="exit"
         >
-          <div className="space-y-6 w-full max-w-[1400px] h-full relative flex flex-col items-center justify-center p-4 pr-8 pl-8">
+          <div className="relative flex h-full w-full max-w-[1400px] flex-col items-center justify-center space-y-6 p-4 pl-8 pr-8">
             {/* Optional particle background */}
             {config.showBackgroundParticles && <BackgroundParticles />}
             {/* Header – customizable through settings */}
             <h1 className="text-3xl text-white/90 font-extrabold text-center tracking-wider pt-10 w-full">
               {config.title}
             </h1>
-            <div className="flex flex-col space-y-5 w-full items-center justify-center">
+            <div
+              className={`flex w-full items-center justify-center gap-5 ${
+                config.mode === 'horizontal' ? 'flex-row flex-wrap' : 'flex-col'
+              }`}
+            >
               {socialMediaList.map((item) => (
                 <SocialCard key={item.config.platform} config={item.config} index={item.index} />
               ))}
