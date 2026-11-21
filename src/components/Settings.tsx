@@ -11,6 +11,8 @@ interface SettingsProps {
   config: WidgetConfig;
   setConfig: React.Dispatch<React.SetStateAction<WidgetConfig>>;
   syncStatus: 'connecting' | 'connected' | 'saving' | 'error' | 'not-configured';
+  profileId: 'default' | 'domentos';
+  profileName: string;
 }
 
 type SocialKey = 'instagram' | 'telegram' | 'website';
@@ -51,7 +53,7 @@ const socialMeta: Record<SocialKey, { title: string; description: string; icon: 
   website: { title: 'Сайт', description: 'Личный сайт или портфолио', icon: Globe2, accent: '#8c829f' },
 };
 
-const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus }) => {
+const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus, profileId, profileName }) => {
   const [localConfig, setLocalConfig] = useState<WidgetConfig>(config);
 
   useEffect(() => setLocalConfig(config), [config]);
@@ -81,20 +83,29 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus }) =>
   return (
     <div className="settings-shell h-screen overflow-y-auto overscroll-contain text-[#e9e6e1]">
       <header className="sticky top-0 z-30 border-b border-[#383735] bg-[#1b1b1a]/95 backdrop-blur">
-        <div className="mx-auto flex h-[66px] max-w-[1440px] items-center justify-between px-5 sm:px-8">
+        <div className="mx-auto flex h-[66px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#292826] text-white">
               <span className="text-[15px] font-semibold tracking-[-0.08em]">vf</span>
             </div>
             <div>
               <p className="text-[13px] font-semibold tracking-[-0.02em] text-[#e9e6e1]">Social Widget</p>
-              <p className="text-[10px] tracking-[0.08em] text-[#89847d]">vanesso4ka_tools</p>
+              <p className="text-[10px] tracking-[0.08em] text-[#c092a0]">{profileName}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-[#302f2d] px-3 py-1.5">
+          <div className="flex items-center gap-3">
+            <label className="hidden items-center gap-2 text-[11px] text-[#aaa39a] sm:flex">
+              Профиль
+              <select value={profileId} onChange={(event) => { window.location.href = `/settings${event.target.value === 'default' ? '' : `?profile=${event.target.value}`}`; }} className="rounded-lg border border-[#45423f] bg-[#302f2d] px-2.5 py-2 text-[11px] font-medium text-[#e9e6e1] outline-none focus:border-[#a77d8a]">
+                <option value="default">Основной</option>
+                <option value="domentos">Domentos</option>
+              </select>
+            </label>
+            <div className="flex items-center gap-2 rounded-full border border-[#3b3937] bg-[#302f2d] px-3 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-[#83a88e]" />
             <span className="text-[11px] font-medium text-[#b2aca4]">{syncStatus === 'connected' ? 'Облачная синхронизация активна' : syncStatus === 'saving' ? 'Сохраняем изменения…' : syncStatus === 'connecting' ? 'Подключаем облако…' : syncStatus === 'error' ? 'Ошибка облачной синхронизации' : 'Ожидает настройки облака'}</span>
             {syncStatus === 'connected' ? <Check size={13} className="ml-1 text-[#83a88e]" /> : <span className={`ml-1 h-1.5 w-1.5 rounded-full ${syncStatus === 'error' ? 'bg-[#d27c7c]' : syncStatus === 'saving' ? 'bg-[#d5b56f]' : 'bg-[#918980]'}`} />}
+            </div>
           </div>
         </div>
       </header>
@@ -274,7 +285,7 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus }) =>
                 <div>
                   <p className="text-[12px] font-semibold text-[#d1cbc3]">Подключение к OBS</p>
                   <p className="mt-1 text-[11px] leading-5 text-[#a29b92]">Добавьте страницу виджета как Browser Source. Настройки сохраняются автоматически в этом браузере.</p>
-                  <a href="/widget" target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#c092a0] hover:text-[#d2a7b3]">Открыть страницу виджета <ExternalLink size={11} /></a>
+                  <a href={`/widget${profileId === 'default' ? '' : `?profile=${profileId}`}`} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#c092a0] hover:text-[#d2a7b3]">Открыть страницу виджета <ExternalLink size={11} /></a>
                 </div>
               </div>
             </div>
