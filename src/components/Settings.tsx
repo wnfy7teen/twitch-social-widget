@@ -94,8 +94,8 @@ const Settings: React.FC<SettingsProps> = ({ config, setConfig, syncStatus, prof
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <label className="hidden items-center gap-2 text-[11px] text-[#aaa39a] sm:flex">
-              Профиль
+            <label className="flex items-center gap-2 text-[11px] text-[#aaa39a]">
+              <span className="hidden sm:inline">Профиль</span>
               <select value={profileId} onChange={(event) => { window.location.href = `/settings${event.target.value === 'default' ? '' : `?profile=${event.target.value}`}`; }} className="rounded-lg border border-[#45423f] bg-[#302f2d] px-2.5 py-2 text-[11px] font-medium text-[#e9e6e1] outline-none focus:border-[#a77d8a]">
                 <option value="default">Основной</option>
                 <option value="domentos">Domentos</option>
