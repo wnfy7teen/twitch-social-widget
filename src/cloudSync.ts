@@ -2,7 +2,6 @@ import type { WidgetConfig } from './types';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL?.replace(/\/$/, '');
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const CONFIG_ID = 'default';
 const TABLE = 'widget_config';
 
 export function isCloudSyncConfigured(): boolean {
@@ -18,10 +17,10 @@ function headers(): HeadersInit {
   };
 }
 
-export async function loadCloudConfig(): Promise<Partial<WidgetConfig> | null> {
+export async function loadCloudConfig(profileId = 'default'): Promise<Partial<WidgetConfig> | null> {
   if (!isCloudSyncConfigured()) return null;
   const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${CONFIG_ID}&select=config&limit=1`,
+    `${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${encodeURIComponent(profileId)}&select=config&limit=1`,
     { headers: headers(), cache: 'no-store' },
   );
   if (!response.ok) throw new Error(`Cloud config read failed: ${response.status}`);
@@ -29,12 +28,12 @@ export async function loadCloudConfig(): Promise<Partial<WidgetConfig> | null> {
   return rows[0]?.config ?? null;
 }
 
-export async function saveCloudConfig(config: WidgetConfig): Promise<void> {
+export async function saveCloudConfig(config: WidgetConfig, profileId = 'default'): Promise<void> {
   if (!isCloudSyncConfigured()) return;
   const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?on_conflict=id`, {
     method: 'POST',
     headers: { ...headers(), Prefer: 'resolution=merge-duplicates,return=minimal' },
-    body: JSON.stringify({ id: CONFIG_ID, config, updated_at: new Date().toISOString() }),
+    body: JSON.stringify({ id: profileId, config, updated_at: new Date().toISOString() }),
   });
   if (!response.ok) throw new Error(`Cloud config save failed: ${response.status}`);
 }
